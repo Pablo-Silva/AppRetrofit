@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,8 +47,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendPost(String titulo, String duracao, String genero) {
+        Filme filme = new Filme();
+        filme.setGenero(genero);
+        filme.setDuracao(duracao);
+        filme.setTitulo(titulo);
 
-        mAPIService.savePost(titulo, duracao, genero).enqueue(new Callback<Filme>() {
+        Gson gson = new Gson();
+
+        String json = gson.toJson(filme);
+
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+
+
+        mAPIService.savePost(body).enqueue(new Callback<Filme>() {
             @Override
             public void onResponse(Call<Filme> call, Response<Filme> response) {
 
@@ -58,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Filme> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to submit post to API.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Unable to submit post to API." , Toast.LENGTH_SHORT).show();
             }
         });
     }
