@@ -57,12 +57,10 @@ public class MainActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
 
-        mAPIService.savePost(body).enqueue(new Callback<Void>() {
+        mAPIService.savePost(body).enqueue(new Callback<Filme>() {
 
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-
-                showResponse(response.body().toString());
+            public void onResponse(Call<Filme> call, Response<Filme> response) {
 
                 if(response.isSuccessful()) {
                     showResponse(response.body().toString());
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Filme> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Unable to submit post to API." , Toast.LENGTH_SHORT).show();
             }
         });

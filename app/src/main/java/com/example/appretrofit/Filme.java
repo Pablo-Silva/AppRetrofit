@@ -7,6 +7,10 @@ import java.util.Objects;
 
 public class Filme {
 
+    @SerializedName("id")
+    @Expose
+    private long id;
+
     @SerializedName("titulo")
     @Expose
     private String titulo;
@@ -22,10 +26,19 @@ public class Filme {
     public Filme() {
     }
 
-    public Filme(String titulo, String duracao, String genero) {
+    public Filme(long id, String titulo, String duracao, String genero) {
+        this.id = id;
         this.titulo = titulo;
         this.duracao = duracao;
         this.genero = genero;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -55,6 +68,7 @@ public class Filme {
     @Override
     public String toString() {
         return "Filme{" +
+                "id=" + id +
                 ", titulo='" + titulo + '\'' +
                 ", duracao='" + duracao + '\'' +
                 ", genero='" + genero + '\'' +

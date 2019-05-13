@@ -13,5 +13,5 @@ public interface APIService {
     @POST("post")
 //    @Headers({"Accept: application/json", "Content-Type: application/json"})
 //    @FormUrlEncoded
-    Call<Void> savePost(@Body RequestBody filme);
+    Call<Filme> savePost(@Body RequestBody filme);
 }
